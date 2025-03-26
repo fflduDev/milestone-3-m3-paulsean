@@ -1,12 +1,16 @@
-package tree;
+package Tree;
 
-public class testOrgChart {
+import Tree.Chart.OrgChart;
+import Tree.Chart.OrgChartImpl;
 
-	public static void main(String[] args) {
+import Tree.Structs.Employee;
 
-		
+public class TreeTester {
+
+	public static void main(String[] args) throws Exception {
 
 		// fill the org chart
+
 		OrgChart company = new OrgChartImpl();
 		
 		Employee e1 = new Employee("Jack", 1001, "CEO");
@@ -20,7 +24,7 @@ public class testOrgChart {
 		Employee e9 = new Employee("Layla", 1253, "Intern");
 		Employee e10 = new Employee("Jade", 1923, "CEO Secretary");
 		
-		company.addRoot(e1);
+		company.addRoot(e1); // modified this to throw exception if root exists already. this method signature also reflects this
 		company.addDirectReport(e1, e2);
 		company.addDirectReport(e1, e5);
 		company.addDirectReport(e1, e10);
@@ -31,23 +35,27 @@ public class testOrgChart {
 		company.addDirectReport(e7, e8);
 		company.addDirectReport(e7, e9);
 		
-		// show it depth first
+		// depth first
+
 		company.showOrgChartDepthFirst();
 		
-		// show breadth first
+		// breadth first
+
 		company.showOrgChartBreadthFirst();
 		
-		// and remove some people
+		// remove some people
+
 		company.removeEmployee(e4);
 		company.removeEmployee(e5);
 		
-		// show it depth first
+		// depth first
+
 		company.showOrgChartDepthFirst();
 		
-		// show breadth first
+		// breadth first
+		
 		company.showOrgChartBreadthFirst();
 		
-
 	}
 
 }
