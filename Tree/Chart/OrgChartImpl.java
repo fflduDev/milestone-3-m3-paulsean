@@ -25,6 +25,24 @@ public class OrgChartImpl implements OrgChart {
 		return this.nodes.stream().filter(node -> node.getChildren().stream().anyMatch(child -> child.getData().equals(reportingEmployee))).findFirst().orElse(null);
 		
 	}
+	
+	private int getLevelOfEmployee(Employee employee) {
+
+		// a level will be how many parents it has
+		
+		int level = 0;
+		TreeNode<Employee> currentParent = this.findParent(employee);
+
+		while (currentParent != null) {
+
+			level++;
+			currentParent = this.findParent(currentParent.getData()); // get the parent of the current parent
+
+		}
+
+		return level;
+
+	}
 
 	@Override
 	public void addRoot(Employee e) throws Exception {
@@ -33,6 +51,8 @@ public class OrgChartImpl implements OrgChart {
 
 			TreeNode<Employee> root = new TreeNode<>(e);
 			this.nodes.add(root);
+			
+			root.setLevel(0); // root is always level 0
 
 		} else {
 
@@ -67,6 +87,7 @@ public class OrgChartImpl implements OrgChart {
 		}
 		
 		this.nodes.add(newPersonNode);
+		newPersonNode.setLevel(this.getLevelOfEmployee(newPerson)); 
 		
 	}
 
@@ -129,11 +150,11 @@ public class OrgChartImpl implements OrgChart {
 
 		}
 
-		printRecursive(this.nodes.get(0)); // start w root
+		printRecursive(this.nodes.get(0), this.nodes.get(0).level); // start w root
 
 	}
 	
-	private void printRecursive(TreeNode<Employee> node) {
+	private void printRecursive(TreeNode<Employee> node, int level) {
 
 		if (node == null) {
 
@@ -141,11 +162,11 @@ public class OrgChartImpl implements OrgChart {
 
 		}
 
-		System.out.print(node.toString());
+		System.out.println(node.toString());
 
 		for (TreeNode<Employee> child : node.getChildren()) {
 
-			printRecursive(child);
+			printRecursive(child, child.level);
 
 		}
 

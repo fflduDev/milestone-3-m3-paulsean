@@ -71,7 +71,6 @@ public class Employee implements Comparable<Employee> {
 
 	// Misc
 
-	@Override
 	public String toString() {
 
 		return this.name + " " + this.id + " " + this.position;
