@@ -7,7 +7,13 @@ import Tree.Structs.Employee;
 
 public class TreeTester {
 
-	public static void main(String[] args) throws Exception {
+	private static void printSeperator(String msg) {
+
+		System.out.printf("----------------- %s -----------------\n", msg);
+
+	}
+
+	public static void main(String[] argv) throws Exception {
 
 		// fill the org chart
 
@@ -37,9 +43,13 @@ public class TreeTester {
 		
 		// depth first
 
+		printSeperator("Depth First");
+
 		company.showOrgChartDepthFirst();
 		
 		// breadth first
+
+		printSeperator("Breadth First");
 
 		company.showOrgChartBreadthFirst();
 		
@@ -50,9 +60,13 @@ public class TreeTester {
 		
 		// depth first
 
+		printSeperator("Depth First, After Removal");
+
 		company.showOrgChartDepthFirst();
 		
 		// breadth first
+
+		printSeperator("Breadth First, After Removal");
 		
 		company.showOrgChartBreadthFirst();
 		

@@ -59,5 +59,14 @@ public class TreeNode<E> {
 		this.children.remove(childToRemove);
 
 	}
+	
+	// Misc
+
+	@Override
+	public String toString() {
+
+		return String.format("| %s |", this.data.toString());
+
+	}
 		
 }

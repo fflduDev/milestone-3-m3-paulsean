@@ -1,7 +1,9 @@
 package Tree.Chart;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 import Tree.Structs.Employee;
 import Tree.Structs.TreeNode;
@@ -62,16 +64,9 @@ public class OrgChartImpl implements OrgChart {
 
 			managerNode.addChild(newPersonNode);
 
-		} else {
-
-			// Add the manager if they do not already exist
-
-			TreeNode<Employee> newManagerNode = new TreeNode<>(manager);
-			this.nodes.add(newManagerNode);
-
-			newManagerNode.addChild(newPersonNode);
-			
 		}
+		
+		this.nodes.add(newPersonNode);
 		
 	}
 
@@ -94,13 +89,65 @@ public class OrgChartImpl implements OrgChart {
 	
 	@Override
 	public void showOrgChartBreadthFirst() {
-		// TODO Auto-generated method stub
+
+		if (this.nodes.isEmpty()) {
+
+			return; // nothing to show
+
+		}
+
+		Queue<TreeNode<Employee>> employeeQueue = new LinkedList<>(); // will implement a queue-like structure 
+
+		employeeQueue.add(this.nodes.get(0)); // adding root
+
+		while (!employeeQueue.isEmpty()) {
+
+			TreeNode<Employee> currentNode = employeeQueue.poll(); // gets and removes the root of the queue
+
+			// Print the current node
+
+			System.out.println(currentNode.toString());
+
+			// Add the children to the queue
+
+			for (TreeNode<Employee> child : currentNode.getChildren()) {
+
+				employeeQueue.add(child);
+
+			}
+
+		}
 
 	}
 
 	@Override
 	public void showOrgChartDepthFirst() {
-		// TODO Auto-generated method stub
+
+		if (this.nodes.isEmpty()) {
+
+			return; // nothing to show
+
+		}
+
+		printRecursive(this.nodes.get(0)); // start w root
+
+	}
+	
+	private void printRecursive(TreeNode<Employee> node) {
+
+		if (node == null) {
+
+			return;
+
+		}
+
+		System.out.print(node.toString());
+
+		for (TreeNode<Employee> child : node.getChildren()) {
+
+			printRecursive(child);
+
+		}
 
 	}
 	
