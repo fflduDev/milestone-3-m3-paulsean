@@ -10,62 +10,95 @@ public class DiGraphImpl implements DiGraph {
 
 	@Override
 	public Boolean addNode(GraphNode node) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return nodeList.add(node);
+
 	}
 
 	@Override
 	public Boolean removeNode(GraphNode node) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return nodeList.remove(node);
+
+	}
+
+	@Override
+	public GraphNode getNode(String nodeValue) {
+
+		return this.nodeList.stream().filter((node) -> node.getValue().equals(nodeValue)).findFirst().orElse(null);
+
+	}
+
+	@Override
+	public List<GraphNode> getNodes() {
+
+		return this.nodeList;
+
 	}
 
 	@Override
 	public Boolean setNodeValue(GraphNode node, String newNodeValue) {
-		// TODO Auto-generated method stub
-		return null;
+
+		node.setValue(newNodeValue);
+		return true;
+
 	}
 
 	@Override
 	public String getNodeValue(GraphNode node) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return node.getValue();
+
 	}
 
 	@Override
 	public Boolean addEdge(GraphNode fromNode, GraphNode toNode, Integer weight) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return fromNode.addNeighbor(toNode, weight);
+
 	}
 
 	@Override
 	public Boolean removeEdge(GraphNode fromNode, GraphNode toNode) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return fromNode.removeNeighbor(toNode);
+		
 	}
 
 	@Override
 	public Boolean setEdgeValue(GraphNode fromNode, GraphNode toNode, Integer newWeight) {
-		// TODO Auto-generated method stub
-		return null;
+
+		if (fromNode.getDistanceToNeighbor(toNode) == null) {
+
+			return false;
+
+		}
+
+		fromNode.getPaths().put(toNode, newWeight);
+
+		return true;
+
 	}
 
 	@Override
 	public Integer getEdgeValue(GraphNode fromNode, GraphNode toNode) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return fromNode.getDistanceToNeighbor(toNode);
+
 	}
 
 	@Override
 	public List<GraphNode> getAdjacentNodes(GraphNode node) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return node.getNeighbors();
+
 	}
 
 	@Override
 	public Boolean nodesAreAdjacent(GraphNode fromNode, GraphNode toNode) {
-		// TODO Auto-generated method stub
-		return null;
+
+		return fromNode.getNeighbors().contains(toNode);
+		
 	}
 
 	@Override
@@ -76,18 +109,6 @@ public class DiGraphImpl implements DiGraph {
 
 	@Override
 	public Boolean hasCycles() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public GraphNode getNode(String nodeValue) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<GraphNode> getNodes() {
 		// TODO Auto-generated method stub
 		return null;
 	}

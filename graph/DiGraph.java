@@ -2,8 +2,8 @@ package Graph;
 
 import java.util.List;
  
-
 public interface DiGraph {
+
 	public Boolean addNode(GraphNode node);
 	public Boolean removeNode(GraphNode node);
 	public Boolean setNodeValue(GraphNode node, String newNodeValue);
