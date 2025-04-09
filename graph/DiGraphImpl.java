@@ -1,10 +1,12 @@
 package Graph;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
 
 public class DiGraphImpl implements DiGraph {
 
@@ -111,42 +113,46 @@ public class DiGraphImpl implements DiGraph {
 	public Boolean nodesAreAdjacent(GraphNode fromNode, GraphNode toNode) {
 
 		return fromNode.getNeighbors().contains(toNode);
-		
+
 	}
 
 	@Override
-	public Boolean nodeIsReachable(GraphNode fromNode, GraphNode toNode) {
+	public Boolean nodeIsReachable(GraphNode targetFromNode, GraphNode targetToNode) {
+ 
+		Queue<GraphNode> graphNodeQueue = new LinkedList<>();
+		Set<GraphNode> visitedNodes = new HashSet<>();
+		
+		//start from the targetFromNode
 
-		Queue<GraphNode> queue = new LinkedList<>();
-		List<GraphNode> visited = new ArrayList<>();
+		graphNodeQueue.add(targetFromNode);
+		visitedNodes.add(targetFromNode);
 
-		queue.add(fromNode); // Start with the initial 
-		queue.add(toNode); // Make sure to add
+		while (!graphNodeQueue.isEmpty()) {
 
-		while (!queue.isEmpty()) {
+			GraphNode currentNode = graphNodeQueue.poll();
 
-			GraphNode current = queue.poll();
-
-			if (current == toNode) {
+			if (currentNode == targetToNode) {
 
 				return true;
 
 			}
 
-			for (GraphNode neighbour : current.getNeighbors()) {
+			// Get all neighbors and enqueue if not already seen
 
-				if (!visited.contains(neighbour)) {
+			for (GraphNode neighbor : currentNode.getNeighbors()) {
 
-					visited.add(neighbour);
-					queue.add(neighbour);
+				if (!visitedNodes.contains(neighbor)) {
+
+					graphNodeQueue.add(neighbor);
+					visitedNodes.add(neighbor);
 
 				}
 
 			}
 
 		}
-
-		return false;
+		
+		return false; // Not found
 
 	}
 
