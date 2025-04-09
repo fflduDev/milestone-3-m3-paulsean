@@ -118,11 +118,11 @@ public class DiGraphImpl implements DiGraph {
 
 	@Override
 	public Boolean nodeIsReachable(GraphNode targetFromNode, GraphNode targetToNode) {
- 
+
 		Queue<GraphNode> graphNodeQueue = new LinkedList<>();
 		Set<GraphNode> visitedNodes = new HashSet<>();
 		
-		//start from the targetFromNode
+		// Start from the targetFromNode
 
 		graphNodeQueue.add(targetFromNode);
 		visitedNodes.add(targetFromNode);
@@ -131,13 +131,15 @@ public class DiGraphImpl implements DiGraph {
 
 			GraphNode currentNode = graphNodeQueue.poll();
 
-			if (currentNode == targetToNode) {
+			// Check if the current node is the targetToNode
+
+			if (currentNode.equals(targetToNode)) {
 
 				return true;
 
 			}
 
-			// Get all neighbors and enqueue if not already seen
+			// Get all neighbors and enqueue if not already visited
 
 			for (GraphNode neighbor : currentNode.getNeighbors()) {
 
@@ -152,7 +154,7 @@ public class DiGraphImpl implements DiGraph {
 
 		}
 		
-		return false; // Not found
+		return false; // Target node is not reachable
 
 	}
 
