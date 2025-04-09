@@ -79,10 +79,25 @@ public class GraphNode {
 	
 	public Boolean addNeighbor(GraphNode neighbor, Integer weight) {
 
-		if (getDistanceToNeighbor(neighbor) != null) return false;
-		
+		if (getDistanceToNeighbor(neighbor) != null)
+			return false;
+
 		paths.put(neighbor, weight);
 		return true;
+
+	}
+	
+	public void printNeighbors() {
+
+		System.out.print("Node " + value + " has neighbors: ");
+
+		for (GraphNode thisNode : paths.keySet()) {
+
+			System.out.print(thisNode.getValue() + " ");
+
+		}
+		
+		System.out.println();
 
 	}
 	

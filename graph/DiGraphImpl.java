@@ -1,8 +1,10 @@
 package Graph;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 import java.util.List;
- 
+import java.util.Queue;
 
 public class DiGraphImpl implements DiGraph {
 
@@ -11,14 +13,14 @@ public class DiGraphImpl implements DiGraph {
 	@Override
 	public Boolean addNode(GraphNode node) {
 
-		return nodeList.add(node);
+		return this.nodeList.add(node);
 
 	}
 
 	@Override
 	public Boolean removeNode(GraphNode node) {
 
-		return nodeList.remove(node);
+		return this.nodeList.remove(node);
 
 	}
 
@@ -62,7 +64,18 @@ public class DiGraphImpl implements DiGraph {
 	public Boolean removeEdge(GraphNode fromNode, GraphNode toNode) {
 
 		return fromNode.removeNeighbor(toNode);
-		
+
+	}
+	
+	public Boolean addEdgeStr(String fromNodeValue, String toNodeValue, Integer weight) {
+
+		GraphNode fromNode = this.getNode(fromNodeValue);
+		GraphNode toNode = this.getNode(toNodeValue);
+
+		if (fromNode == null || toNode == null) return false;
+
+		return this.addEdge(fromNode, toNode, weight);
+
 	}
 
 	@Override
@@ -103,14 +116,51 @@ public class DiGraphImpl implements DiGraph {
 
 	@Override
 	public Boolean nodeIsReachable(GraphNode fromNode, GraphNode toNode) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Queue<GraphNode> queue = new LinkedList<>();
+		List<GraphNode> visited = new ArrayList<>();
+
+		queue.add(fromNode); // Start with the initial 
+		queue.add(toNode); // Make sure to add
+
+		while (!queue.isEmpty()) {
+
+			GraphNode current = queue.poll();
+
+			if (current == toNode) {
+
+				return true;
+
+			}
+
+			for (GraphNode neighbour : current.getNeighbors()) {
+
+				if (!visited.contains(neighbour)) {
+
+					visited.add(neighbour);
+					queue.add(neighbour);
+
+				}
+
+			}
+
+		}
+
+		return false;
+
 	}
 
 	@Override
 	public Boolean hasCycles() {
-		// TODO Auto-generated method stub
-		return null;
+
+		for (GraphNode node : nodeList) {
+
+			if (this.nodeIsReachable(node, node)) return true;
+			
+		}
+		
+		return false;
+
 	}
 
 	@Override
