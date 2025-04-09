@@ -6,15 +6,11 @@ public class TreeNode<E> {
 
 	E data;
 	ArrayList<TreeNode<E>> children;
-
-	public int level = 0;
 	
 	public TreeNode(E theItem) {
 
 		this.data = theItem;
 		this.children = new ArrayList<TreeNode<E>>();
-
-		this.level = level;
 
 	}
 
@@ -29,12 +25,6 @@ public class TreeNode<E> {
 	public ArrayList<TreeNode<E>> getChildren() {
 
 		return this.children;
-
-	}
-
-	public void setLevel(int level) {
-
-		this.level = level;
 
 	}
 
