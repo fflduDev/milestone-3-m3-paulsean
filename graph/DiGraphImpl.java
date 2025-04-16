@@ -1,12 +1,15 @@
 package Graph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 public class DiGraphImpl implements DiGraph {
 
@@ -162,14 +165,108 @@ public class DiGraphImpl implements DiGraph {
 
 	@Override
 	public int fewestHops(GraphNode fromNode, GraphNode toNode) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
+		Queue<GraphNode> graphNodeQueue = new LinkedList<>();
+		Set<GraphNode> visitedNodes = new HashSet<>();
+
+		Map<GraphNode, Integer> hopsCount = new HashMap<>();
+
+		// init collections
+
+		graphNodeQueue.add(fromNode);
+		visitedNodes.add(fromNode);
+		hopsCount.put(fromNode, 0);
+
+		while (!graphNodeQueue.isEmpty()) {
+
+			GraphNode currentNode = graphNodeQueue.poll();
+			int currentHops = hopsCount.get(currentNode);
+
+			// check if successful 
+
+			if (currentNode.equals(toNode)) {
+
+				return currentHops;
+
+			}
+
+			// if not, add more nodes to the queue
+
+			for (GraphNode neighbor : currentNode.getNeighbors()) {
+
+				if (!visitedNodes.contains(neighbor)) {
+
+					graphNodeQueue.add(neighbor);
+					visitedNodes.add(neighbor);
+					hopsCount.put(neighbor, currentHops + 1);
+
+				}
+
+			}
+
+		}
+
+		return -1;
+
+	}
+	
 	@Override
 	public int shortestPath(GraphNode fromNode, GraphNode toNode) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		Queue<GraphNode> stack = new LinkedList<>();
+		Set<GraphNode> visitedNodes = new HashSet<>();
+		Map<GraphNode, Integer> pathWeights = new HashMap<>();
+
+		stack.add(fromNode);
+		visitedNodes.add(fromNode);
+		pathWeights.put(fromNode, 0);
+
+		int shortestPathWeight = -1;
+
+		while (!stack.isEmpty()) {
+
+			GraphNode currentNode = stack.poll();
+			int currentWeight = pathWeights.get(currentNode);
+
+			// check if successful 
+
+			if (currentNode.equals(toNode)) {
+
+				if (shortestPathWeight == -1 || currentWeight < shortestPathWeight) {
+
+					shortestPathWeight = currentWeight;
+
+				}
+
+			} else {
+
+				// if not, add more nodes to the queue
+
+				for (GraphNode neighbor : currentNode.getNeighbors()) {
+
+					int neighborWeight = currentNode.getDistanceToNeighbor(neighbor);
+
+					if (!visitedNodes.contains(neighbor)) {
+
+						stack.add(neighbor);
+						visitedNodes.add(neighbor);
+
+						pathWeights.put(neighbor, currentWeight + neighborWeight);
+
+					} else if (pathWeights.get(neighbor) > currentWeight + neighborWeight) {
+
+						pathWeights.put(neighbor, currentWeight + neighborWeight);
+
+					}
+
+				}
+
+			}
+
+		}
+		
+		return shortestPathWeight;
+
 	}
 
 }
