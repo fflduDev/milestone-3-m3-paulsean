@@ -69,17 +69,6 @@ public class DiGraphImpl implements DiGraph {
 
 	}
 	
-	public Boolean addEdgeStr(String fromNodeValue, String toNodeValue, Integer weight) {
-
-		GraphNode fromNode = this.getNode(fromNodeValue);
-		GraphNode toNode = this.getNode(toNodeValue);
-
-		if (fromNode == null || toNode == null) return false;
-
-		return this.addEdge(fromNode, toNode, weight);
-
-	}
-
 	@Override
 	public Boolean setEdgeValue(GraphNode fromNode, GraphNode toNode, Integer newWeight) {
 
