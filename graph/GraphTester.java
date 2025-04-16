@@ -11,10 +11,12 @@ public class GraphTester {
 
 	public static void printNodesValues(List<GraphNode> nodeList) {
 
-		System.out.println("Nodes are:");
+		System.out.print("Nodes are: ");
 
-		if (nodeList == null) System.out.println("---- No Nodes ----");
-		else nodeList.forEach((n) -> System.out.println(n.getValue()));
+		if (nodeList == null) System.out.print("N/A");
+		else nodeList.forEach((n) -> System.out.printf("%s ", n.getValue()));
+		
+		System.out.println(); // new line
 		
 	}
 	

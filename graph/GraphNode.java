@@ -91,12 +91,20 @@ public class GraphNode {
 
 		System.out.print("Node " + value + " has neighbors: ");
 
-		for (GraphNode thisNode : paths.keySet()) {
+		if (paths.isEmpty()) {
 
-			System.out.print(thisNode.getValue() + " ");
+			System.out.print("N/A");
+
+		} else {
+
+			for (GraphNode thisNode : paths.keySet()) {
+
+				System.out.print(thisNode.getValue() + " ");
+
+			}
 
 		}
-		
+
 		System.out.println();
 
 	}
